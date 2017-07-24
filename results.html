@@ -4,19 +4,34 @@
 	</head>
 	<body>
 		<?php
+		$special = [
+					$_POST["strength"],
+					$_POST["perception"],
+					$_POST["endurance"],
+					$_POST["charisma"],
+					$_POST["intelligence"],
+					$_POST["agility"],
+					$_POST["luck"]
+					];
+		
+		//if S.P.E.C.I.A.L. stats are OK
+		if ((array_sum($special)==42)&&(max($special)<=10)&&(min($special)>=1)){
 		echo 
-		"Name: ".$_GET["name"]."<br>".
-		"Surname: ".$_GET["surname"]."<br>".
-		"Age: ".$_GET["age"]."<br>".
-		"Sex: ".$_GET["sex"]."<br><br>".
+		"Name: ".$_POST["name"]."<br>".
+		"Surname: ".$_POST["surname"]."<br>".
+		"Age: ".$_POST["age"]."<br>".
+		"Sex: ".$_POST["sex"]."<br><br>".
 		"S.P.E.C.I.A.L. stats:"."<br>". 
-		"Strength: ".$_GET["strength"]."<br>".
-		"Perception: ".$_GET["perception"]."<br>".
-		"Endurance: ".$_GET["endurance"]."<br>".
-		"Charisma: ".$_GET["charisma"]."<br>".
-		"Intelligence: ".$_GET["intelligence"]."<br>".
-		"Agility: ".$_GET["agility"]."<br>".
-		"Luck: ".$_GET["luck"]."<br>";
+		"Strength: ".$_POST["strength"]."<br>".
+		"Perception: ".$_POST["perception"]."<br>".
+		"Endurance: ".$_POST["endurance"]."<br>".
+		"Charisma: ".$_POST["charisma"]."<br>".
+		"Intelligence: ".$_POST["intelligence"]."<br>".
+		"Agility: ".$_POST["agility"]."<br>".
+		"Luck: ".$_POST["luck"]."<br>";
+		
+		//if S.P.E.C.I.A.L. stats are not OK
+		else echo "Oops, there is something wrong with your S.P.E.C.I.A.L. stats, change 'em!"
 		?>
 	</body>
 </html>
