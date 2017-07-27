@@ -15,9 +15,7 @@
             ];
 
             //if S.P.E.C.I.A.L. stats are OK
-            // echo array_sum($special);
-            // echo max($special);
-            // echo min($special);
+            
             if ((array_sum($special)==42)&&(max($special)<=10)&&(min($special)>=1)){
                 echo
                     "Name: ".$_POST["name"]."<br>".
