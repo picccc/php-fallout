@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Fallout results</title>
+    </head>
+    <body>
+        <?php
+            $special = [
+                $_POST["strength"],
+                $_POST["perception"],
+                $_POST["endurance"],
+                $_POST["charisma"],
+                $_POST["intelligence"],
+                $_POST["agility"],
+                $_POST["luck"]
+            ];
+
+            //if S.P.E.C.I.A.L. stats are OK
+            // echo array_sum($special);
+            // echo max($special);
+            // echo min($special);
+            if ((array_sum($special)==42)&&(max($special)<=10)&&(min($special)>=1)){
+                echo
+                    "Name: ".$_POST["name"]."<br>".
+                    "Surname: ".$_POST["surname"]."<br>".
+                    "Age: ".$_POST["age"]."<br>".
+                    "Sex: ".$_POST["sex"]."<br><br>".
+                    "S.P.E.C.I.A.L. stats:"."<br>".
+                    "Strength: ".$_POST["strength"]."<br>".
+                    "Perception: ".$_POST["perception"]."<br>".
+                    "Endurance: ".$_POST["endurance"]."<br>".
+                    "Charisma: ".$_POST["charisma"]."<br>".
+                    "Intelligence: ".$_POST["intelligence"]."<br>".
+                    "Agility: ".$_POST["agility"]."<br>".
+                    "Luck: ".$_POST["luck"]."<br>";
+            }
+            //if S.P.E.C.I.A.L. stats are not OK
+            else echo "Oops, there is something wrong with your S.P.E.C.I.A.L. stats, change 'em!";
+        ?>
+    </body>
+</html>
