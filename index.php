@@ -10,12 +10,12 @@
 		<link rel="shortcut icon" href="favicon.png"/>
 		<style>
 			body {margin:50px; color: #73ce81;}
-			    h3{
-					background-image: linear-gradient(to top, rgba(22,77,32,0), rgba(22,77,32,0.8), rgba(22,77,32,1),
-                    rgba(22,77,32,1), rgba(18,82,23,1), rgba(22,77,32,1), rgba(22,77,32,1),
-                    rgba(22,77,32,0.8),rgba(22,77,32,0));
-					color: #fff; padding: 10px;
-				}
+		    h3{
+				background-image: linear-gradient(to top, rgba(22,77,32,0), rgba(22,77,32,0.8), rgba(22,77,32,1),
+                   rgba(22,77,32,1), rgba(18,82,23,1), rgba(22,77,32,1), rgba(22,77,32,1),
+                   rgba(22,77,32,0.8),rgba(22,77,32,0));
+				color: #fff; padding: 10px;
+			}
 		</style>
 	</head>
 
