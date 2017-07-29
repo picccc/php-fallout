@@ -54,11 +54,14 @@
         ?>
 		
 		<?php
-			//writing character info into "character.txt"
-			$output = fopen("character.txt","w");
-			fwrite($output,$_POST["name"].' '.$_POST["surname"].' '.$_POST["age"].' '.$_POST["sex"].' '.$special[0].' '.$special[1].' '.$special[2].' '.$special[3].' '.$special[4].' '.$special[5].' '.$special[6]); 
-			echo '<br><a href="character.txt" class="btn btn-primary">Download your character info</a><br>'
-		?>
-		Click the button and save the opened page (right click and "Save page as...").
+			if ($spec == 1) 
+			{
+				//writing character info into "character.txt"
+				$output = fopen("character.txt","w");
+				fwrite($output,$_POST["name"].' '.$_POST["surname"].' '.$_POST["age"].' '.$_POST["sex"].' '.$special[0].' '.$special[1].' '.$special[2].' '.$special[3].' '.$special[4].' '.$special[5].' '.$special[6]); 
+				echo '<br><a href="character.txt" class="btn btn-primary">Download your character info</a><br>';
+				echo 'Click the button and save the opened page (right click and "Save page as...").';
+			}
+	    	?>
     </body>
 </html>
