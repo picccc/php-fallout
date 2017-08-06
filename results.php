@@ -75,7 +75,7 @@
 			
 			//these are names of server, username, password and database
 			$servername = "localhost";
-			$username = "root";
+			$username = "fallout";
 			$password = "";
 			$DB_name = "fallout";
 			
