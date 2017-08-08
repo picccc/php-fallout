@@ -2,15 +2,15 @@
 	<head>
 		<title>Fallout character info</title>
 		
-		<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1">
 		<link href="css/bootstrap.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 		<link rel="shortcut icon" href="favicon.png"/>
 		<style>
 			body {margin:50px; color: #73ce81;}
 			h3{
-					background-image: linear-gradient(to top, rgba(22,77,32,0), rgba(22,77,32,0.8), rgba(22,77,32,1),
-					rgba(22,77,32,1), rgba(18,82,23,1), rgba(22,77,32,1), rgba(22,77,32,1),
+					background-image: linear-gradient(to top,rgba(22,77,32,0),rgba(22,77,32,0.8),rgba(22,77,32,1),
+					rgba(22,77,32,1),rgba(18,82,23,1),rgba(22,77,32,1),rgba(22,77,32,1),
 					rgba(22,77,32,0.8),rgba(22,77,32,0));
 					color: #fff; padding: 10px;
 			}
@@ -47,6 +47,28 @@
 			]
 			);
 			
+			//creating an array for weapon stats
+			$weapon = array_combine(
+			[
+				"name",
+				"type",
+				"subtype",
+				"damage",
+				"critical",
+				"capacity",
+				"weight"
+			],
+			[
+				$_POST["wep_name"],
+				$_POST["wep_type"],
+				$_POST["wep_subtype"],
+				$_POST["wep_damage"],
+				$_POST["wep_critical"],
+				$_POST["wep_capacity"],
+				$_POST["wep_weight"]
+			]
+			);
+			
 			
 			//if S.P.E.C.I.A.L. stats are OK
 			if ((array_sum($special)==42)&&(max($special)<=10)&&(min($special)>=1))
@@ -66,59 +88,87 @@
 					"Luck: $special[luck] <br>";
 			
 			//if S.P.E.C.I.A.L. stats are not OK
-			else die("Oops, there is something wrong with your S.P.E.C.I.A.L. stats, change 'em!");
+//			else die("Oops,there is something wrong with your S.P.E.C.I.A.L. stats,change 'em!");
 			
 			
 			
 			
 			//writing new entry into the database characters table
 			
-			//these are names of server, username, password and database
+			//these are names of server,username,password and database
 			$servername = "localhost";
-			$username = "fallout";
+			$username = "root";
 			$password = "";
 			$DB_name = "fallout";
 			
 			//trying to connect to the database;
-			//if not successfull, tries to create a database "fallout" with a table "characters";
-			//if not successfull, stops the script.
-			$conn = mysqli_connect($servername, $username, $password, $DB_name);
+			//if not successfull,stops the script.
+			$conn = mysqli_connect($servername,$username,$password,$DB_name);
 			if (!$conn)
-			{
-				$sql = "create database $DB_name";
-				if (!mysqli_query($conn, $sql))
-					die ("Couldn't connect to (or create) a database, try again :/");
-				$conn = mysqli_connect($servername, $username, $password, $DB_name);
-				if (!$conn)
-					die("Couldn't connect to (or create) a database, try again :/");
-				$sql = "CREATE TABLE characters(
-							ID INT NOT NULL AUTO_INCREMENT,
-							Name VARCHAR(20),
-							Surname VARCHAR(20),
-							Age TINYINT(2),
-							Sex VARCHAR(6),
-							Strength TINYINT(2),
-							Perception TINYINT(2),
-							Endurance TINYINT(2),
-							Charisma TINYINT(2),
-							Intelligence TINYINT(2),
-							Agility TINYINT(2),
-							Luck TINYINT(2),
-							PRIMARY KEY (ID)
-						);";
-				if (!mysqli_query($conn, $sql))
-					die ("Couldn't create a table, try again :/");
-			}
-
-			//filling a query for insertion of character information
-			$sql = "INSERT INTO characters (name, surname, age, 
-					sex, strength, perception, endurance, charisma, 
-					intelligence, agility, luck) 
-					VALUES ('$name', '$surname', '$age', '$sex', '$special[strength]', '$special[perception]', '$special[endurance]', '$special[charisma]', '$special[intelligence]', '$special[agility]', '$special[luck]');";
+				die("Try again :/");
 			
-			//trying to add a new entry
-			if (!mysqli_query($conn, $sql))
-				echo "Couldn't add your character, try again :/";
+			//creating tables from "tables.txt" (if they already exist,they are not being created); 
+			//$tables[0] is 'characters' table, $tables[1] is 'weapons' table, so i commented it 
+			$tables = file("tables.txt");
+			mysqli_query($conn,$tables[0]);
+//			mysqli_query($conn,$tables[1]);
+			
+			//filling a query for insertion of character information
+			$sql = "INSERT  INTO characters (
+								name,
+								surname,
+								age,
+								sex,
+								strength,
+								perception,
+								endurance,
+								charisma,
+								intelligence,
+								agility,
+								luck
+											) 
+							VALUES (
+								'$name',
+								'$surname',
+								'$age',
+								'$sex',
+								'$special[strength]',
+								'$special[perception]',
+								'$special[endurance]',
+								'$special[charisma]',
+								'$special[intelligence]',
+								'$special[agility]',
+								'$special[luck]'
+							);";
+			
+			//trying to add a new character entry
+			if (!mysqli_query($conn,$sql))
+				echo "Try again :/";
+			
+//something useful i don't need to use now, but will need to use later, so please don't delete it
+			//filling a query for insertion of weapon information
+/*			$sql = "INSERT INTO weapons (
+								name,
+								type,
+								subtype,
+								damage,
+								critical,
+								capacity,
+								weight,
+										)
+								
+							VALUES (
+							'$weapons[name]',
+							'$weapons[type]',
+							'$weapons[subtype]',
+							'$weapons[damage]',
+							'$weapons[critical]',
+							'$weapons[capacity]',
+							'$weapons[weight']
+									);";
+			if (!mysqli_query($conn,$sql))
+				echo "Try again :/"; */
+			
 			//closing database
 			mysqli_close($conn);
 			?>
