@@ -46,9 +46,9 @@
 				$_POST["luck"]
 			]
 			);
-			
+//I will use it in the future, pls do not delete
 			//creating an array for weapon stats
-			$weapon = array_combine(
+/*			$weapon = array_combine(
 			[
 				"name",
 				"type",
@@ -67,7 +67,7 @@
 				$_POST["wep_capacity"],
 				$_POST["wep_weight"]
 			]
-			);
+			); */
 			
 			
 			//if S.P.E.C.I.A.L. stats are OK
@@ -88,7 +88,7 @@
 					"Luck: $special[luck] <br>";
 			
 			//if S.P.E.C.I.A.L. stats are not OK
-//			else die("Oops,there is something wrong with your S.P.E.C.I.A.L. stats,change 'em!");
+			else die("Oops,there is something wrong with your S.P.E.C.I.A.L. stats,change 'em!");
 			
 			
 			
