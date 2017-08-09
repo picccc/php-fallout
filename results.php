@@ -46,29 +46,6 @@
 				$_POST["luck"]
 			]
 			);
-//I will use it in the future, pls do not delete
-			//creating an array for weapon stats
-/*			$weapon = array_combine(
-			[
-				"name",
-				"type",
-				"subtype",
-				"damage",
-				"critical",
-				"capacity",
-				"weight"
-			],
-			[
-				$_POST["wep_name"],
-				$_POST["wep_type"],
-				$_POST["wep_subtype"],
-				$_POST["wep_damage"],
-				$_POST["wep_critical"],
-				$_POST["wep_capacity"],
-				$_POST["wep_weight"]
-			]
-			); */
-			
 			
 			//if S.P.E.C.I.A.L. stats are OK
 			if ((array_sum($special)==42)&&(max($special)<=10)&&(min($special)>=1))
@@ -88,7 +65,7 @@
 					"Luck: $special[luck] <br>";
 			
 			//if S.P.E.C.I.A.L. stats are not OK
-			else die("Oops,there is something wrong with your S.P.E.C.I.A.L. stats,change 'em!");
+//			else die("Oops,there is something wrong with your S.P.E.C.I.A.L. stats,change 'em!");
 			
 			
 			
@@ -96,10 +73,12 @@
 			//writing new entry into the database characters table
 			
 			//these are names of server,username,password and database
-			$servername = "localhost";
-			$username = "root";
-			$password = "";
-			$DB_name = "fallout";
+			$profile = file_get_contents("database_profile.json");
+			$profile = json_decode($profile, true);
+			$servername = $profile[hostname];
+			$username = $profile[user];
+			$password = $profile[password];
+			$DB_name = $profile[DB_name];
 			
 			//trying to connect to the database;
 			//if not successfull,stops the script.
@@ -108,10 +87,10 @@
 				die("Try again :/");
 			
 			//creating tables from "tables.txt" (if they already exist,they are not being created); 
-			//$tables[0] is 'characters' table, $tables[1] is 'weapons' table, so i commented it 
+			//$tables[0] is 'characters' table, $tables[2] is 'char_gun' linking table
 			$tables = file("tables.txt");
 			mysqli_query($conn,$tables[0]);
-//			mysqli_query($conn,$tables[1]);
+			mysqli_query($conn,$tables[2]);
 			
 			//filling a query for insertion of character information
 			$sql = "INSERT  INTO characters (
@@ -144,30 +123,6 @@
 			//trying to add a new character entry
 			if (!mysqli_query($conn,$sql))
 				echo "Try again :/";
-			
-//something useful i don't need to use now, but will need to use later, so please don't delete it
-			//filling a query for insertion of weapon information
-/*			$sql = "INSERT INTO weapons (
-								name,
-								type,
-								subtype,
-								damage,
-								critical,
-								capacity,
-								weight,
-										)
-								
-							VALUES (
-							'$weapons[name]',
-							'$weapons[type]',
-							'$weapons[subtype]',
-							'$weapons[damage]',
-							'$weapons[critical]',
-							'$weapons[capacity]',
-							'$weapons[weight']
-									);";
-			if (!mysqli_query($conn,$sql))
-				echo "Try again :/"; */
 			
 			//closing database
 			mysqli_close($conn);
